@@ -9,6 +9,7 @@
 - Dev
     - [C#](/csharp/README.md)
     - [Python](/python/README.md)
+    - [Tools](/tools/README.md)
 
 - Daily
     - [XMind](/daily/README.md)
