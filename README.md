@@ -2,8 +2,18 @@
 
 # Stack Overflow
 
-`感觉困难，是你还没找到答案。`
+`感觉困难，是你还没找到答案！`
 
 </div>
 
-## [Books](/books/README.md)
+- Dev
+    - [C#](/csharp/README.md)
+    - [Python](/python/README.md)
+
+- Daily
+    - [XMind](/daily/README.md)
+
+
+
+
+> 此仓库仅作为我日常的总结，不喜勿喷！
