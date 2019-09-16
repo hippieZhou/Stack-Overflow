@@ -244,6 +244,7 @@ MIDDLEWARE = [
 ]
 
 # views.py
+
 ip = request.META.get('REMOTE_ADDR',None)
 ```
 
