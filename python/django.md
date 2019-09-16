@@ -104,3 +104,37 @@ urlpatterns = [
          name='django.contrib.sitemaps.views.sitemap')
 ]
 ```
+
+- feeds
+
+```python
+# feeds.py
+
+from django.contrib.syndication.views import Feed
+from django.template.defaultfilters import truncatewords
+
+from .models import Post
+
+
+class LastestPostFeed(Feed):
+    title = 'My Blog'
+    link = '/blog/'
+    description = 'New posts of my blog.'
+
+    def items(self):
+        return Post.published.all()[:5]
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        return truncatewords(item.body, 30)
+
+# urls.py
+
+from .feeds import LastestPostFeed
+
+urlpatterns = [
+    path('feed/', LastestPostFeed(), name='post_feed'),
+]
+```
