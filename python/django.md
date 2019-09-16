@@ -222,3 +222,57 @@ urlpatterns = [
     - [PostgreSQL](https://www.postgresql.org/)
     - [Elasticsearch](http://es-guide-preview.elasticsearch.cn/)
     - [Haystack](http://haystacksearch.org/)
+
+- 自定义中间件
+
+```python
+# RemoteAddrFromForwardedForMiddleware.py
+
+from django.utils.deprecation import MiddlewareMixin
+
+
+class RemoteAddrFromForwardedForMiddleware(MiddlewareMixin):
+    def process_request(self, request):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        ip = x_forwarded_for.split(',')[0] if x_forwarded_for else request.META.get('REMOTE_ADDR')
+        request.META['REMOTE_ADDR'] = ip
+
+# settings.py
+
+MIDDLEWARE = [
+    'website.http.RemoteAddrFromForwardedForMiddleware',
+]
+
+# views.py
+ip = request.META.get('REMOTE_ADDR',None)
+```
+
+- 自定义异常页面
+
+```python
+# errors.py
+
+from django.shortcuts import render
+from django.http import JsonResponse
+
+
+def handler404(request, *args, **argv):
+    if request.content_type.find('application/json') > -1:
+        response = JsonResponse({'error': 'Not found'}, status=404)
+    else:
+        response = render(request, '404.html', status=404)
+    return response
+
+
+def handler500(request, *args, **argv):
+    if request.content_type.find('application/json') > -1:
+        response = JsonResponse({'error': 'Server internal error'}, status=500)
+    else:
+        response = render(request, '500.html', status=500)
+    return response
+
+# urls.py
+
+handler404 = 'website.error_views.handler404'
+handler500 = 'website.error_views.handler500'
+```
