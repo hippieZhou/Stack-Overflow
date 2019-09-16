@@ -213,6 +213,5 @@ def markdown_format(text):
     {% endfor %}
 </ul>
 
-{{ post.body|markdown }}
-
+{{ post.body|markdown|truncatewords_html:30 }}
 ```
