@@ -73,77 +73,6 @@ th.start()
 
 > fail_silently=False 表示如果发送失败就抛出异常。如果看到返回1，就说明邮件成功发送；
 
-- sitemap
-
-```python
-# settings.py
-
-SITE_ID = 1
-INSTALLED_APPS = [
-    'django.contrib.sites',
-    'django.contrib.sitemaps',
-]
-
-# sitemaps.py
-
-from django.contrib.sitemaps import Sitemap
-from .models import Post
-
-class PostSitemap(Sitemap):
-    changefreq = 'weekly'
-    priority = 0.9
-
-    def items(self):
-        return Post.published.all()
-
-    def lastmod(self, obj):
-        return obj.updated
-
-# urls.py
-
-from django.contrib.sitemaps.views import sitemap
-from blog.sitemaps import PostSitemap
-
-urlpatterns = [
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
-         name='django.contrib.sitemaps.views.sitemap')
-]
-```
-
-- feeds
-
-```python
-# feeds.py
-
-from django.contrib.syndication.views import Feed
-from django.template.defaultfilters import truncatewords
-
-from .models import Post
-
-
-class LastestPostFeed(Feed):
-    title = 'My Blog'
-    link = '/blog/'
-    description = 'New posts of my blog.'
-
-    def items(self):
-        return Post.published.all()[:5]
-
-    def item_title(self, item):
-        return item.title
-
-    def item_description(self, item):
-        return truncatewords(item.body, 30)
-
-# urls.py
-
-from .feeds import LastestPostFeed
-
-urlpatterns = [
-    path('feed/', LastestPostFeed(), name='post_feed'),
-]
-```
-
 - [标签功能：django-taggit](https://github.com/alex/django-taggit)
 
 - 自定义模板标签和过滤器
@@ -215,3 +144,81 @@ def markdown_format(text):
 
 {{ post.body|markdown|truncatewords_html:30 }}
 ```
+
+- sitemap
+
+```python
+# settings.py
+
+SITE_ID = 1
+INSTALLED_APPS = [
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+]
+
+# sitemaps.py
+
+from django.contrib.sitemaps import Sitemap
+from .models import Post
+
+class PostSitemap(Sitemap):
+    changefreq = 'weekly'
+    priority = 0.9
+
+    def items(self):
+        return Post.published.all()
+
+    def lastmod(self, obj):
+        return obj.updated
+
+# urls.py
+
+from django.contrib.sitemaps.views import sitemap
+from blog.sitemaps import PostSitemap
+
+sitemaps = {'posts': PostSitemap,}
+
+urlpatterns = [
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap')
+]
+```
+
+> 执行 python manage.py migrate 后会在后台创建对应的管理模型
+
+- feeds
+
+```python
+# feeds.py
+
+from django.contrib.syndication.views import Feed
+from django.template.defaultfilters import truncatewords
+from .models import Post
+
+
+class LastestPostFeed(Feed):
+    title = 'My Blog'
+    link = '/blog/'
+    description = 'New posts of my blog.'
+
+    def items(self):
+        return Post.published.all()[:5]
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        return truncatewords(item.body, 30)
+
+# urls.py
+
+from .feeds import LastestPostFeed
+
+urlpatterns = [
+    path('feed/', LastestPostFeed(), name='post_feed'),
+]
+```
+- 全文搜索
+    - [PostgreSQL](https://www.postgresql.org/)
+    - [Elasticsearch](http://es-guide-preview.elasticsearch.cn/)
+    - [Haystack](http://haystacksearch.org/)
