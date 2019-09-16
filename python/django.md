@@ -49,16 +49,21 @@ DATABASES = {
 `settings.py`
 
 ```python
-EMAIL_HOST = 'smtp.qq.com' 
-EMAIL_HOST_USER = "admin" 
-EMAIL_HOST_PASSWORD = "xxxxxxxxxxxxx" 
-EMAIL_PORT = 587
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # 仅在调试模式下启用该配置
+
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = '1736252185@qq.com'  # QQ 账号
+EMAIL_HOST_PASSWORD = 'spvabkoffesabidb' # 授权码
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "admin@qq.com"
+EMAIL_FROM = '1736252185@qq.com'  #  QQ 账号
 ```
 
 ```python
- from django.core.mail import send_mail 
+from django.core.mail import send_mail
+from django.conf import settings
 
- send_mail('hippiezhou','helloworld','1736252185@qq.com',['hippiezhou@outlook.com'],fail_silently=False)
+send_mail('subject', 'message', settings.EMAIL_FROM, ['hippiezhou@outlook.com','admin@outlook.com'], fail_silently=False)
 ```
+
+> send_mail 中的发送者邮箱要和代码中使用的发送者邮箱保持一致，否则无法发送
