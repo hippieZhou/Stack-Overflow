@@ -53,7 +53,7 @@ netstat -anp | grep port
 
 - WSL
     - [HyperV 启用增强模式](https://github.com/Microsoft/linux-vm-tools/issues/76)
-    - [网络连接问题](https://superuser.com/questions/1066272/internet-access-not-working-in-windows-subsystem-for-linux)
+    - [网络连接问题](https://github.com/microsoft/WSL/issues/5)
 
 - 酸酸乳
 
