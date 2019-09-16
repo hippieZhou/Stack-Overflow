@@ -51,22 +51,27 @@ DATABASES = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # 仅在调试模式下启用该配置
 
-EMAIL_HOST = 'smtp.qq.com'
-EMAIL_PORT = 25
-EMAIL_HOST_USER = '1736252185@qq.com'  # QQ 账号
-EMAIL_HOST_PASSWORD = 'spvabkoffesabidb' # 授权码
-EMAIL_USE_TLS = True
-EMAIL_FROM = '1736252185@qq.com'  #  QQ 账号
+EMAIL_HOST = 'smtp.qq.com'                # 邮件主机，默认是localhost
+EMAIL_PORT = 25                           # SMTP服务端口，默认是25
+EMAIL_HOST_USER = '1736252185@qq.com'     # SMTP服务器的用户名
+EMAIL_HOST_PASSWORD = 'spvabkoffesabidb'  # SMTP服务器的密码，授权码
+EMAIL_USE_TLS = True                      # 是否使用TLS进行连接
+# EMAIL_USE_SSL = True                    # 是否使用SSL进行连接
 
 # views.py
 
 from django.core.mail import send_mail
 from django.conf import settings
 
-send_mail('subject', 'message', settings.EMAIL_FROM, ['hippiezhou@outlook.com','admin@outlook.com'], fail_silently=False)
+# 同步方式
+send_mail('subject', 'message', settings.EMAIL_HOST_USER, ['hippiezhou@outlook.com','admin@outlook.com'], fail_silently=False) 
+
+# 异步方式
+th = Thread(target=send_mail, args=['subject', 'message', settings.EMAIL_HOST_USER, ['hippiezhou@outlook.com','admin@outlook.com'], fail_silently=False])
+th.start()
 ```
 
-> send_mail 中的发送者邮箱要和代码中使用的发送者邮箱保持一致，否则无法发送
+> fail_silently=False 表示如果发送失败就抛出异常。如果看到返回1，就说明邮件成功发送；
 
 - sitemap
 
@@ -137,4 +142,77 @@ from .feeds import LastestPostFeed
 urlpatterns = [
     path('feed/', LastestPostFeed(), name='post_feed'),
 ]
+```
+
+- [标签功能：django-taggit](https://github.com/alex/django-taggit)
+
+- 自定义模板标签和过滤器
+    - simple_tag: 处理数据并且返回字符串
+    - inclusion_tag: 处理数据并返回一个渲染的模板
+
+```python
+
+# 组织结构
+# blog/
+#     __init__.py
+#     models.py
+#     ...
+#     templatetags/
+#         __init__.py
+#         blog_tags.py
+
+# blog_tags.py
+
+from django import template
+from django.db.models import Count
+from django.utils.safestring import mark_safe
+
+import markdown
+
+from ..models import Post
+
+register = template.Library()
+
+
+@register.simple_tag
+def total_posts():
+    return Post.published.count()
+
+
+@register.inclusion_tag('blog/post/laest_posts.html')
+def show_latest_posts(count=5):
+    latest_posts = Post.published.order_by('-publish')[:count]
+    return {'latest_posts': latest_posts}
+
+
+@register.simple_tag
+def get_most_commented_posts(count=5):
+    return Post.published.annotate(total_comments=Count('comments')).order_by('-total_comments')[:count]
+
+
+@register.filter(name='markdown')
+def markdown_format(text):
+    return mark_safe(markdown.markdown(text))
+```
+
+```html
+{% load blog_tags %}
+
+<p>This is my blog. I've written {% total_posts %} posts so far.</p>
+
+<h3>Latest posts</h3>
+{% show_latest_posts %}
+
+<h3>Most commented posts</h3>
+{% get_most_commented_posts as most_commented_posts %}
+<ul>
+    {% for post in most_commented_posts %}
+    <li>
+        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{{ post.body|markdown }}
+
 ```
