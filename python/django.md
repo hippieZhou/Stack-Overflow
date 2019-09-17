@@ -49,12 +49,14 @@ DATABASES = {
 ```python
 # settings.py
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # 仅在调试模式下启用该配置
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # 启用项可在本地模拟邮件接收
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.qq.com'                # 邮件主机，默认是localhost
 EMAIL_PORT = 25                           # SMTP服务端口，默认是25
 EMAIL_HOST_USER = '1736252185@qq.com'     # SMTP服务器的用户名
 EMAIL_HOST_PASSWORD = 'spvabkoffesabidb'  # SMTP服务器的密码，授权码
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER      # 避免出现 501：smtplib.SMTPSenderRefused 错误
 EMAIL_USE_TLS = True                      # 是否使用TLS进行连接
 # EMAIL_USE_SSL = True                    # 是否使用SSL进行连接
 
@@ -64,10 +66,10 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 # 同步方式
-send_mail('subject', 'message', settings.EMAIL_HOST_USER, ['hippiezhou@outlook.com','admin@outlook.com'], fail_silently=False) 
+send_mail('subject', 'message', settings.DEFAULT_FROM_EMAIL, ['hippiezhou@outlook.com','admin@outlook.com'], fail_silently=False) 
 
 # 异步方式
-th = Thread(target=send_mail, args=['subject', 'message', settings.EMAIL_HOST_USER, ['hippiezhou@outlook.com','admin@outlook.com'], fail_silently=False])
+th = Thread(target=send_mail, args=['subject', 'message', settings.DEFAULT_FROM_EMAIL, ['hippiezhou@outlook.com','admin@outlook.com'], fail_silently=False])
 th.start()
 ```
 
