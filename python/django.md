@@ -282,30 +282,40 @@ handler500 = 'website.error_views.handler500'
 
 - account
     - [使用内置验证视图(from django.contrib.auth import views as auth_views)](https://docs.djangoproject.com/en/2.2/topics/auth/default/#all-authentication-views)
-        - LoginView：处理登录表单填写和登录功能（和我们写的功能类似）
-            - path('login/', auth_views.LoginView.as_view(), name='login'),
-            - login.html
-        - LogoutView：退出登录
-            - path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-            - logged_out.html
-        - PaswordChangeView：处理一个修改密码的表单，然后修改密码
-            - path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
-            - password_change_form.html
-        - PasswordChangeDoneView：成功修改密码后执行的视图
-            - path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
-            - password_change_done.html
-        - PasswordResetView：用户选择重置密码功能执行的视图，生成一个一次性重置密码链接和对应的验证token，然后发送邮件给用户
-            - path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
-            - password_reset_form.html
-        - PasswordResetDoneView：通知用户已经发送给了他们一封邮件重置密码
-            - path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
-            - password_reset_done.html
-        - PasswordResetConfirmView：用户设置新密码的页面和功能控制
-            -   path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-            - password_reset_email.html
-        - PasswordResetCompleteView：成功重置密码后执行的视图
-            - path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-            - password_reset_complete.html
+
+```bash
+LoginView：处理登录表单填写和登录功能
+- path('login/', auth_views.LoginView.as_view(), name='login'),
+- login.html
+
+LogoutView：退出登录
+- path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+- logged_out.html
+
+PaswordChangeView：处理一个修改密码的表单，然后修改密码
+- path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
+- password_change_form.html
+
+PasswordChangeDoneView：成功修改密码后执行的视图
+- path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
+- password_change_done.html
+
+PasswordResetView：用户选择重置密码功能执行的视图，生成一个一次性重置密码链接和对应的验证token，然后发送邮件给用户
+- path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+- password_reset_form.html
+
+PasswordResetDoneView：通知用户已经发送给了他们一封邮件重置密码
+- path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+- password_reset_done.html
+
+PasswordResetConfirmView：用户设置新密码的页面和功能控制
+- path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+- password_reset_email.html
+
+PasswordResetCompleteView：成功重置密码后执行的视图
+- path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+- password_reset_complete.html
+```
 
 > 如果想自定义视图页面，上述视图需要放到 `templates/registration` 目录下；需要在 `settings.py` 中将 `INSTALLED_APPS` 配置中的对应 *app* 放到 `django.contrib.admin` 之前；如果需要使用 `PasswordResetView` 则需要进行邮箱服务器配置；
 
