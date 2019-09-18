@@ -6,4 +6,4 @@
 
  - [OS](os.md)
  - [MySQL](mysql.md)
- - [Redis](redis.md)
+ - [Distributed](distributed.md)
