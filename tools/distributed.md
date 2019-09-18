@@ -4,7 +4,7 @@
 
 </div>
 
-- redis
+- [redis](https://github.com/antirez/redis)
     - 计数：从我们的例子可以看出，使用Redis管理计数非常便捷，incr()和incrby()方法可以方便的实现计数功能。
     - 存储最新的项目：使用lpush()和rpush()可以向一个队列的开头和末尾追加数据，lpop()和rpop()则是从队列开始和末尾弹出元素。如果操作造成队列长度改变，还可以用ltrim()保持队列长度。
     - 队列：除了上边的pop和push系列方法，Redis还提供了阻塞队列的方法
@@ -19,14 +19,14 @@ redis-server
 redis-cli
 ```
 
-- rabbitmq
+- [rabbitmq](https://github.com/rabbitmq/rabbitmq-server)
 
 ```bash
 sudo apt-get install rabbitmq-server
 sudo rabbitmq-server
 ```
 
-- celery
+- [celery](https://github.com/celery/celery)
 
 ```bash
 pip install celery
