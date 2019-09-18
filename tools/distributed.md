@@ -26,7 +26,7 @@ redis-server
 redis-cli
 ```
 
-- mq
+- rabbitmq
 
 ```bash
 # 安装
@@ -37,4 +37,8 @@ sudo rabbitmq-server
 ```
 
 - celery
+
+```bash
+pip install celery
+```
 
