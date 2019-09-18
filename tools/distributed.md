@@ -14,23 +14,15 @@
     - 实时跟踪：Redis的高速I/O可以用在实时追踪并更新数据方面。
 
 ```bash
-# 安装
 sudo apt-get install redis-server
-
-# 启动进程
 redis-server
-
-# 进入
 redis-cli
 ```
 
 - rabbitmq
 
 ```bash
-# 安装
 sudo apt-get install rabbitmq-server
-
-# 启动
 sudo rabbitmq-server
 ```
 
