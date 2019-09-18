@@ -40,5 +40,10 @@ sudo rabbitmq-server
 
 ```bash
 pip install celery
+
+celery -A myshop worker -l info
+
+# 如果进行可视化查看可按照如下包
+pip install flower
 ```
 
