@@ -6,13 +6,24 @@
 
 </div>
 
-- Dev
-    - [C#](/csharp/README.md)
-    - [Python](/python/README.md)
-    - [Tools](/tools/README.md)
+## Dev
 
-- Daily
-    - [XMind](/daily/README.md)
+### [C#](/csharp/README.md)
+
+### Python
+
+- [Flask](/python/flask.md)
+- [Django](/python/django.md)
+
+## Tools
+
+- [OS](/tools/os.md)
+- [MySql](/tools/mysql.md)
+- [Distributed](/tools/distributed.md)
+
+## Daily
+
+- [XMind](/daily/README.md)
 
 ![提问的艺术](https://user-images.githubusercontent.com/13598361/64902105-ff3ad500-d6d3-11e9-82f6-89c54276ed31.png)
 
