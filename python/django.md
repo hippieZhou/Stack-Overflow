@@ -30,6 +30,9 @@ python manage.py check --deploy
 django-admin makemessages --all
 # 编译消息文件
 django-admin compilemessages
+
+# 将指定的模型数据 JSON 序列化输出
+python manage.py dumpdata courses --indent=2
 ```
 
 - MySQL 配置
