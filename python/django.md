@@ -386,6 +386,10 @@ AUTHENTICATION_BACKENDS = [
 
 - 多语言
     - [django-rosetta](https://github.com/mbi/django-rosetta)
+    - [django-parler](https://github.com/django-parler/django-parler)
+
+- 表单验证
+    - [django-localflavor](https://github.com/django/django-localflavor)
 
 - AJAX 中使用 CSRF
 
