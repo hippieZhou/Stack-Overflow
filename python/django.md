@@ -554,3 +554,19 @@ $(window).scroll(
 );
 {% endblock %}
 ```
+
+- markdown
+
+```bash
+pip install markdown
+pip install Pygments
+```
+
+```python
+import markdown
+html=markdown.markdown(article.content, extensions=[
+        'markdown.extensions.extra',
+        'markdown.extensions.codehilite',
+        'markdown.extensions.toc',
+    ])
+```
