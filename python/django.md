@@ -33,6 +33,12 @@ django-admin compilemessages
 
 # 将指定的模型数据 JSON 序列化输出
 python manage.py dumpdata courses --indent=2
+
+# 将指定的模型数据 JSON 序列化输出并保存在本地
+python manage.py dumpdata courses --indent=2 --output=courses/fixtures/subjects.json
+
+# 录入数据
+python manage.py loaddata subjects.json
 ```
 
 - MySQL 配置
