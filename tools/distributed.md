@@ -23,7 +23,18 @@ redis-cli
 
 ```bash
 sudo apt-get install rabbitmq-server
-sudo rabbitmq-server
+
+sudo service rabbitmq-server restart
+# sudo rabbitmq-server
+
+# 后台运行
+sudo rabbitmq-server -detached
+
+sudo rabbitmqctl status
+
+# 停止服务
+sudo rabbitmqctl stop
+
 ```
 
 - [celery](https://github.com/celery/celery)
