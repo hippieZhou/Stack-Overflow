@@ -384,6 +384,9 @@ AUTHENTICATION_BACKENDS = [
 - 缩略图
     - [sorl-thumbnail](https://sorl-thumbnail.readthedocs.io/)
 
+- 多语言
+    - [django-rosetta](https://github.com/mbi/django-rosetta)
+
 - AJAX 中使用 CSRF
 
 ```python
