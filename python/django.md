@@ -28,6 +28,8 @@ python manage.py check --deploy
 
 # 多语言文件的生成
 django-admin makemessages --all
+# 编译消息文件
+django-admin compilemessages
 ```
 
 - MySQL 配置
