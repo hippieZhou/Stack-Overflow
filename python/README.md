@@ -18,7 +18,9 @@ pipenv install --dev requests
 
 # 有 Pipfile 的情况下
 pipenv install
+pipenv install --python=/usr/bin/python3.6
 pipenv install --dev
+
 
 # 进入当前虚拟环境
 pipenv shell
