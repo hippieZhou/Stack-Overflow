@@ -9,7 +9,7 @@
 ## Dev
 
 - [C#](/csharp/README.md)
-- Python
+- [Python](/python/README.md)
     - [Flask](/python/flask.md)
     - [Django](/python/django.md)
 
