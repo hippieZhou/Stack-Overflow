@@ -12,6 +12,7 @@
     - [开发规范](/csharp/开发规范.md)
     - [优秀程序设计的 18 大原则](/csharp/优秀程序设计的18大原则.md)
 - Python
+- [Python](/python/README.md)
     - [Flask](/python/flask.md)
     - [Django](/python/django.md)
 
