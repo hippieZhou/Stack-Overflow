@@ -1,6 +1,6 @@
 <div align="center">
 
-# Tools - OS
+# Tools - Ubuntu
 
 </div>
 

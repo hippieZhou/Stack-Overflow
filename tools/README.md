@@ -4,6 +4,7 @@
 
 </div>
 
- - [OS](os.md)
+ - [Ubuntu](ubuntu.md)
+ - [Windows10](windows.md)
  - [MySQL](mysql.md)
  - [Distributed](distributed.md)

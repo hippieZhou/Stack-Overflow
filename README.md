@@ -18,7 +18,8 @@
 
 ## Tools
 
-- [OS](/tools/os.md)
+- [Windows 10](/tools/windows.md)
+- [Ubuntu](/tools/ubuntu.md)
 - [MySql](/tools/mysql.md)
 - [Distributed](/tools/distributed.md)
 
