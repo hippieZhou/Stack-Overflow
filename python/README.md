@@ -4,6 +4,30 @@
 
 </div>
 
+- 修改 pip 下载源
+
+1. Windows
+```bash
+进入 %APPDATA% 目录 创建 pip 文件夹，在里面创建 pip.ini 文件并保存如下内容：
+
+[global]
+timeout = 6000
+index-url = http://pypi.douban.com/simple
+trusted-host = pypi.douban.com
+```
+
+2. Ubuntu
+
+```bash
+在 /home/<user-name>/ 目录下创建 pip.conf 文件，并保存如下内容：
+
+[global]
+timeout = 6000
+index-url = http://pypi.douban.com/simple
+trusted-host = pypi.douban.com
+```
+
+
 - pipenv
 
 ```bash
