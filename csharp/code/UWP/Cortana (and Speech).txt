@@ -1,0 +1,59 @@
+VCD文件内容格式：
+<?xml version="1.0" encoding="utf-8" ?>
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <CommandSet xml:lang="en-us" Name="FreeText_en-us">
+    <CommandPrefix> TemplateTen </CommandPrefix>
+    <Example> Handle my text with Template 10. </Example>
+
+    <Command Name="FreeTextCommand">
+      <Example> Add statement Hello World </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> [please] add statement {textPhrase} [with] </ListenFor>
+      <Feedback> Adding statement for you now. </Feedback>
+      <Navigate />
+    </Command>
+
+    <PhraseTopic Label="textPhrase" Scenario="Natural Language" />
+
+  </CommandSet>
+</VoiceCommands>
+
+
+
+使用方法：
+在主项目中的APP.cs中编写下述示例代码：
+public override async Task OnInitializeAsync(IActivatedEventArgs args)
+{
+    var url = new Uri("ms-appx:///Cortana.xml");
+    var file = await StorageFile.GetFileFromApplicationUriAsync(url);
+    await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(file);
+}
+public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
+{
+    if (args.Kind == ActivationKind.VoiceCommand)
+    {
+        var result = (args as VoiceCommandActivatedEventArgs).Result;
+        var properties = result.SemanticInterpretation.Properties
+            .ToDictionary(x => x.Key, x => x.Value);
+
+        var command = result.RulePath.First();
+        if (command.Equals("FreeTextCommand"))
+        {
+            // get spoken text
+            var text = properties.First(x => x.Key.Equals("textPhrase")).Value[0];
+
+            // remember to handle response appropriately
+            var mode = properties.First(x => x.Key.Equals("commandMode")).Value;
+            if (mode.Equals("voice")) { /* okay to speak */ }
+            else { /* not okay to speak */ }
+
+            // update value
+            ViewModels.MainPageViewModel.Instance.Value = text;
+        }
+        else { /* unexpected command */ }
+    }
+    else
+    {
+        NavigationService.Navigate(typeof(Views.MainPage));
+    }
+    return Task.FromResult<object>(null);
+}

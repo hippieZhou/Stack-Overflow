@@ -1,0 +1,18 @@
+1、简介：
+	关于类型，WinRT必须提供语言无关的类型——integer（整数）、enumerations（枚举）、structures（结构）、arrays（数组）、interfaces（接口）、generic interfaces（泛型接口）、以及runtime classes（运行时类）。引入了被称之为HSTRING的新字符串类型，该类型允许在不进行任何数据复制的情况下，在应用程序与运行时环境之间传输字符串。
+	每个WinRT对象都会对应一些接口，其中有两个接口属于每个对象：IUnknown接口，熟悉的COM接口；以及IInspectable接口，用于根据对象所包含的元数据来发现有关该对象的信息。一个对象可能通过接口提供其他功能，然而运行时类会把这些接口集中公开出来。例如，一个FileInformation对象拥有由FileInformation类公开的IStorageItemInformation、IStorageItem、IStorageFile三个接口。
+	WinRT对象在编译时被公开给C++应用程序，而对于C#或VB.NET应用程序而言，对WinRT对象的绑定一部分是在编译时完成的，另一部分则是在运行时完成的。HTML或JavaScript应用程序只有在运行时可以看到WinRT对象，而且元数据是动态生成的。
+
+2、踩坑：
+	2.1：API签名只使用Windows运行时的类型
+	2.2：结构体只能拥有公有的数据字段
+	2.3：只允许对XAML控件使用继承，其它类型都必须使用sealed关键字。
+	2.4：只支持内建的泛型
+	2.5：只能使用表示异步操作的 Windows 运行时接口来向外接暴露异步方法
+	2.6
+
+3、参考链接：
+	3.1：https://msdn.microsoft.com/zh-cn/library/windows/apps/xaml/mt609005.aspx
+	3.2：https://marcominerva.wordpress.com/2013/03/21/how-to-expose-async-methods-in-a-windows-runtime-component/
+	3.3：https://en.wikipedia.org/wiki/Dynamic-link_library
+	3.4：http://www.infoq.com/news/2011/09/Design-Details-Windows-Runtime
