@@ -31,16 +31,6 @@ flush privileges;
 quit;
 ```
 
-- 修改密码
-
-```bash
-# 8.0之后
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<your-password>';
-
-# 8.0之前
-update mysql.user set authentication_string=password("<your-password>") where user="root";
-```
-
 -  设置字符编码(修改完毕后需要重启服务)
 
 ```bash
@@ -54,26 +44,43 @@ port =3306
 character-set-server=utf8
 ```
 
-- 常用语法
+- 常用命令
 
 ```bash
 mysql -u root -p
 mysql -h$ip -P$port -u$user -p
+
+# 创建用户
+create user db_user@'%' identified by 'db_pass'; # 8.0之后
+grant all privileges on db_name.* to db_user@'%' identified by 'db_pass'; # 8.0之前
+
+# 删除用户
+DROP USER 'database_user'@'localhost';
+
+
+# 修改密码
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<your-password>'; # 8.0之后
+update mysql.user set authentication_string=password("<your-password>") where user="root"; # 8.0之前
+
+# 数据库相关操作
 create database `<db-name>` character set 'utf8' collate 'utf8_bin';
-use <db-name>;
-drop database <db-name>;
 show databases;
+drop database <db-name>;
+
+use <db-name>;
+
+# 导入数据库
+source /data/backup.sql(数据库绝对路径)
+
+# 查看数据库用户信息
+SELECT DISTINCT CONCAT('User: ''',user,'''@''',host,''';') AS query FROM mysql.user;
+
+# 数据表相关操作
 create table <table-name> ENGINE=InnoDB;
 create table <table-new-name> like <table-name>;
 show create table <table-name> t\G;
 desc <table-name>;
-```
 
-> 如果通过 Navicat 来进行创建数据库的话，建议设置对应的数据库字符集为 mtf8mb4，对应的排序规则为：utf8mb4_general_ci
-
-- 常用命令
-
-```bash
 # 查看正在运行的执行i列表
 show processlists;
 
@@ -88,6 +95,8 @@ show variables like 'transaction_isolation';
 
 exit; 
 ```
+
+> 如果通过 Navicat 来进行创建数据库的话，建议设置对应的数据库字符集为 mtf8mb4，对应的排序规则为：utf8mb4_general_ci
 
 - 长短连接
 
