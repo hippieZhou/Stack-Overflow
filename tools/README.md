@@ -7,9 +7,8 @@
  - [Ubuntu](ubuntu.md)
  - [Windows10](windows.md)
  - [MySQL](mysql.md)
+ - [Nginx](nginx.md)
  - [Distributed](distributed.md)
-
-
 
 # 名词解释
 
