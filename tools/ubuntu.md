@@ -4,6 +4,12 @@
 
 </div>
 
+- 查看系统版本
+
+```bash
+cat /proc/version
+```
+
 - Ubuntu 系统美化
 
 ```bash
