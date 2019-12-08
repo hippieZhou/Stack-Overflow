@@ -50,9 +50,13 @@ character-set-server=utf8
 mysql -u root -p
 mysql -h$ip -P$port -u$user -p
 
+# 查看当前密码策略
+SHOW VARIABLES LIKE 'validate_password%';
+
 # 创建用户
-create user db_user@'%' identified by 'db_pass'; # 8.0之后
-grant all privileges on db_name.* to db_user@'%' identified by 'db_pass'; # 8.0之前
+CREATE USER 'hippie'@'localhost' IDENTIFIED BY 'password';
+CREATE USER 'hippie'@'%' IDENTIFIED BY 'password'; # 8.0之后
+grant all privileges on db_name.* to db_user@'%' identified by 'password'; # 8.0之前
 
 # 删除用户
 DROP USER 'database_user'@'localhost';
