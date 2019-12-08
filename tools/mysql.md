@@ -11,7 +11,13 @@ sudo apt update && sudo apt install mysql-server
 sudo service mysql status
 sudo service mysql stop
 sudo service mysql start
-sudo mysql_secure_installation(n-password-y-y-y-y)
+sudo mysql_secure_installation
+> 第一步：是否安装验证密码插件：N
+> 第二不：为 root 设置密码 (执行 mysql -u root -p 时会用到)
+> 第三步：是否删除匿名用户
+> 第四步：是否允许 root 远程登录
+> 第五步：是否删除测试数据库
+> 第六步：是否对授权表立即生效
 ```
 
 - 调整 root 用户认证方式和权限
