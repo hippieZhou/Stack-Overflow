@@ -20,6 +20,23 @@ sudo mysql_secure_installation
 > 第六步：是否对授权表立即生效
 ```
 
+- 配置远程连结
+
+```bash
+sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+
+# 屏蔽 bind-address = 127.0.0.1 (大概在 43 行)
+
+# 保存退出后执行下述操作
+mysql -u root -p
+grant all on *.* to root@'%' identified by 'password' with grant option;
+flush privileges;    # 刷新权限
+exit;
+
+# 退出后重启服务
+sudo systemctl restart mysql
+```
+
 - 调整 root 用户认证方式和权限
 
 ```bash
