@@ -25,10 +25,13 @@ sudo mysql_secure_installation
 ```bash
 sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
 
-# 屏蔽 bind-address = 127.0.0.1 (大概在 43 行)
+# 将 bind-address = 127.0.0.1 (大概在 43 行) 后的 IP 换成公网 IP
 
 # 保存退出后执行下述操作
 mysql -u root -p
+
+# 如果 root 用户的 authentication_string 为空且plugin 不为 'mysql_native_password' 则需要修改该用户的认证方式
+
 grant all on *.* to root@'%' identified by 'password' with grant option;
 flush privileges;    # 刷新权限
 exit;
