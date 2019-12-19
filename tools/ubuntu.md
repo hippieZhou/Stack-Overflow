@@ -8,6 +8,9 @@
 
 ```bash
 cat /proc/version
+
+# WSL
+lsb_release -a
 ```
 
 - Ubuntu 系统美化
