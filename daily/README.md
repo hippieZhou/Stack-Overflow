@@ -15,3 +15,7 @@
 - 提问的艺术
 
 ![](images/提问的艺术.png)
+
+- 如果选择合适的开源协议
+
+![](images/free_software_licenses.png)
