@@ -20,26 +20,9 @@ sudo mysql_secure_installation
 > 第六步：是否对授权表立即生效
 ```
 
-- 配置远程连结
+- 卸载
 
 ```bash
-sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
-
-# 将 bind-address = 127.0.0.1 (大概在 43 行) 后的 IP 换成公网 IP
-
-# 保存退出后执行下述操作
-mysql -u root -p
-
-# 如果 root 用户的 authentication_string 为空且plugin 不为 'mysql_native_password' 则需要修改该用户的认证方式
-
-grant all on *.* to root@'%' identified by 'password' with grant option;
-flush privileges;    # 刷新权限
-exit;
-
-# 退出后重启服务
-sudo systemctl restart mysql
-
-#卸载
 sudo -i
 service mysql stop
 killall -KILL mysql mysqld_safe mysqld
@@ -51,6 +34,32 @@ delgroup mysql
 rm -rf /etc/apparmor.d/abstractions/mysql /etc/apparmor.d/cache/usr.sbin.mysqld /etc/mysql /var/lib/mysql /var/log/mysql* /var/log/upstart/mysql.log* /var/run/mysqld
 updatedb
 exit
+```
+
+- 配置远程连结
+
+```bash
+sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+
+# 在 [mysqld] 的节点区域最后( (大概在 40 行))添加 skip-grant-tables
+# 将 bind-address = 127.0.0.1 (大概在 43 行)  -> bind-address = 0.0.0.0
+
+# 保存退出后执行下述操作
+sudo mysql -u root -p
+
+# 修改 root 用户登录方式
+use mysql;
+select host,user from user;
+update user set host = '%' where user = 'root';
+
+# 如果 root 用户的 authentication_string 为空且plugin 不为 'mysql_native_password' 则需要修改该用户的认证方式
+
+grant all on *.* to root@'%' identified by 'password' with grant option;
+flush privileges;    # 刷新权限
+exit;
+
+# 退出后重启服务
+sudo systemctl restart mysql # 或者（sudo /etc/init.d/mysql restart）
 ```
 
 - 调整 root 用户认证方式和权限
