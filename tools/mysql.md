@@ -150,12 +150,12 @@ exit;
 > 如果通过 Navicat 来进行创建数据库的话，建议设置对应的数据库字符集为 mtf8mb4，对应的排序规则为：utf8mb4_general_ci
 
 - 关闭公网IP
- - 启动参数或者配置文件中设置bind-address= IP绑定内部IP
- - 以root账号连接数据库，排查user表中用户的host字段值为%或者非localhost的用户，修改host为localhost或者指定IP或者删除没必要用户。
+
+> 启动参数或者配置文件中设置bind-address= IP绑定内部IP；以root账号连接数据库，排查user表中用户的host字段值为%或者非localhost的用户，修改host为localhost或者指定IP或者删除没必要用户。
 
 - 长短连接
 
-尽量使用长连接（短连接易消耗资源)，定期断开长连接（重连）
+> 尽量使用长连接（短连接易消耗资源)，定期断开长连接（重连）
 
 - 查询l流程
 
